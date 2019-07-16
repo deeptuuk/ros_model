@@ -1,5 +1,5 @@
 <launch>
-    <arg name="model" default="$(find xacro)/xacro --inorder '$(find my_model)/urdf/my_robot_nointegration.xacro'" />
+    <arg name="model" default="$(find xacro)/xacro --inorder '$(find my_model)/urdf/my_robot_with_rplidar.xacro'" />
 	<param name="robot_description" command="$(arg model)" />
 
 	<!-- 设置GUI参数，显示关节控制插件 -->
