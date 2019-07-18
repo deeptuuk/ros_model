@@ -13,7 +13,8 @@
         <joint name="base_to_wheel_joint_${number}" type="continuous">
             <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="0 0 0" />
             <parent link="${parent}"/>
-            <child link="wheel_${number}" />
+            <child link="wheel_${number}" />     
+            <axis xyz="0 1 0"/>     
         </joint>
 
         <link name="wheel_${number}">
@@ -39,8 +40,21 @@
                 <geometry>
                     <cylinder radius="${wheel_r}" length = "${wheel_l}"/>
                 </geometry>            
-            </collision>  
+            </collision>            
         </link>
+
+        <gazebo reference="wheel_${number}">
+            <material>Gazebo/Gray</material>
+        </gazebo>          
+
+        <transmission name="simple_trans_${number}">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="base_to_wheel_joint_${number}" />
+            <actuator name="actuator_${number}">
+                <mechanicalReduction>1</mechanicalReduction>
+                <hardwareInterface>VelocityJointInterface</hardwareInterface>
+            </actuator>
+        </transmission>      
     </xacro:macro>
 
     <xacro:macro name="my_robot">
@@ -67,13 +81,17 @@
                 <geometry>
                     <box size="${base_l} ${base_w} ${base_h}" />
                 </geometry>            
-            </collision>
+            </collision>             
         </link>
 
-        <base_to_wheel_joint parent="base_link" number="front_left" x_loc="${base_l/2}" y_loc="${base_w/2 + wheel_l/2}+" z_loc="-${base_h/2}"/>
-        <base_to_wheel_joint parent="base_link" number="front_righ" x_loc="${base_l/2}" y_loc="-${base_w/2 + wheel_l/2}+" z_loc="-${base_h/2}"/>
-        <base_to_wheel_joint parent="base_link" number="back_left" x_loc="-${base_l/2}" y_loc="${base_w/2 + wheel_l/2}+" z_loc="-${base_h/2}"/>
-        <base_to_wheel_joint parent="base_link" number="back_righ" x_loc="-${base_l/2}" y_loc="-${base_w/2 + wheel_l/2}+" z_loc="-${base_h/2}"/>
+        <gazebo reference="base_link">
+            <material>Gazebo/Yellow</material>
+        </gazebo>          
 
-    </xacro:macro>    
+        <base_to_wheel_joint parent="base_link" number="front_left" x_loc="${base_l/2}" y_loc="${base_w/2 + wheel_l/2}" z_loc="${-base_h/2}"/>
+        <base_to_wheel_joint parent="base_link" number="front_righ" x_loc="${base_l/2}" y_loc="${-base_w/2 - wheel_l/2}" z_loc="${-base_h/2}"/>
+        <base_to_wheel_joint parent="base_link" number="back_left" x_loc="${-base_l/2}" y_loc="${base_w/2 + wheel_l/2}" z_loc="${-base_h/2}"/>
+        <base_to_wheel_joint parent="base_link" number="back_righ" x_loc="${-base_l/2}" y_loc="${-base_w/2 - wheel_l/2}" z_loc="${-base_h/2}"/>
+
+    </xacro:macro> 
 </robot>

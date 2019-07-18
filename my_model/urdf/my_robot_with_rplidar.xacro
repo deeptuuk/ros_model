@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="deeptuuk" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:include filename="my_robot.urdf"/>
+    <xacro:include filename="my_robot.xacro"/>
     <xacro:include filename="rplidar.xacro" />
 
 	<xacro:property name="rplidar_offset_x" value="0" />
@@ -15,5 +15,28 @@
 		<parent link="base_link"/>
 		<child link="laser_link"/>
 	</joint>
-	<xacro:rplidar prefix="laser"/>    
+	<rplidar/>
+
+	<gazebo>
+		<plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+			<updateRate>100.0</updateRate>
+			<alwaysOn>true</alwaysOn>
+			<covariance_x>0.0001</covariance_x>
+			<covariance_y>0.0001</covariance_y>
+			<covariance_yaw>0.01</covariance_yaw>
+			<robotNamespace>/</robotNamespace>
+			<leftFrontJoint>base_to_wheel_joint_front_left</leftFrontJoint>
+			<rightFrontJoint>base_to_wheel_joint_front_righ</rightFrontJoint>
+			<leftRearJoint>base_to_wheel_joint_back_left</leftRearJoint>
+			<rightRearJoint>base_to_wheel_joint_back_righ</rightRearJoint>
+			<wheelSeparation>0.24</wheelSeparation>
+			<wheelDiameter>0.08</wheelDiameter>
+			<robotBaseFrame>base_link</robotBaseFrame>
+			<torque>50</torque>
+			<commandTopic>cmd_vel</commandTopic>
+			<odometryTopic>odom</odometryTopic>
+			<odometryFrame>odom</odometryFrame>
+			<broadcastTF>true</broadcastTF>
+		</plugin>
+	</gazebo>
 </robot>

@@ -10,7 +10,7 @@ geometry_msgs::Twist temp_last;
 void write_callback(const sensor_msgs::Joy::ConstPtr &joy_cmd)
 {
 	temp.linear.x = joy_cmd->axes[4];
-	temp.angular.z = joy_cmd->axes[3];
+	temp.angular.z = joy_cmd->axes[3]*3;
 }
 
 int main(int argc, char *argv[])

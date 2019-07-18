@@ -12,5 +12,5 @@
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 	
 	<!-- 运行rviz可视化界面 -->
-	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_model)/config/my_robot.rviz" required="true" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_model)/config/my_robot_2.rviz" required="true" />
 </launch>
