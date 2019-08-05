@@ -45,15 +45,13 @@
 
         <gazebo reference="wheel_${number}">
             <material>Gazebo/Gray</material>
-            <mu1>100</mu1>
-            <mu2>100</mu2>            
         </gazebo>          
 
         <transmission name="simple_trans_${number}">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="base_to_wheel_joint_${number}" />
             <actuator name="actuator_${number}">
-                <mechanicalReduction>100</mechanicalReduction>
+                <mechanicalReduction>1</mechanicalReduction>
                 <hardwareInterface>VelocityJointInterface</hardwareInterface>
             </actuator>
         </transmission>      
@@ -64,7 +62,7 @@
             <visual>
                 <origin xyz=" 0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <box size="${base_l} ${base_w} ${base_h}" />
+                    <box size="0.15 0.1 0.05" />
                 </geometry>
                 <material name="yellow">
                     <color rgba="1 0.4 0 1"/>
@@ -81,7 +79,7 @@
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <box size="${base_l} ${base_w} ${base_h}" />
+                    <box size="0.15 0.1 0.05" />
                 </geometry>            
             </collision>             
         </link>
